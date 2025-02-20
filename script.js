@@ -23,7 +23,19 @@ document.addEventListener("keypress", (e)=>{
             contPulo++
         }
     }
-    
+})
+
+document.addEventListener("keypress", (e)=>{
+    switch(event.key){
+        case 'a':
+            personagem.velocidadex = -5
+        break
+
+        case 'd':
+            personagem.velocidadex = 5
+        break
+    }
+
 })
 
 const personagem = {
@@ -32,6 +44,7 @@ const personagem = {
     tamx: 50,
     tamy: 50,
     velocidadey: 0,
+    velocidadex:0,
     pulando: false
 }
 function desenhaPersonagem(){
@@ -57,11 +70,13 @@ function atualizaObstaculo(){
         obstaculo.velocidade += 0.5
         obstaculo.tamy = altura_rand
         obstaculo.posy = canvas.height - altura_rand
-
+        pontos++
+        // pontos += obstaculo.velocidade
     }
 }
 
 function atualizaPersonagem(){
+    personagem.posx += personagem.velocidadex
     if(personagem.pulando){
         personagem.velocidadey += gravidade
         personagem.posy += personagem.velocidadey
@@ -86,9 +101,6 @@ function verificaColisao(){
         //     location.reload();
         // }, -1)
         houveColisao()
-        return false 
-    }else{
-        return true
     }
 }
 
@@ -109,10 +121,6 @@ function houveColisao(){
 
 
 function pontuacao (){
-    if(personagem.posx == obstaculo.posx){
-        
-    }
-    
     document.getElementById("ponto").innerHTML = pontos
 }
 
